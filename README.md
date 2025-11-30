@@ -45,3 +45,45 @@ This project is built using **Python (Flask backend)** and **React + Tailwind (f
 ---
 
 ## 📁 Folder Structure
+student_resource_rental/
+├── app.py
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── requirements.txt
+├── tailwind.config.ts
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+│
+├── public/
+│   ├── placeholder.svg
+│   └── other public assets
+│
+├── src/
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── index.css
+│   ├── assets/
+│   ├── components/
+│   └── lib/
+│
+├── static/
+│   └── static files for Flask
+│
+└── templates/
+├── index.html
+├── login.html
+├── register.html
+└── other template files
+
+---
+
+## ✨ Author
+
+**Om Jee**  
+GitHub: https://github.com/omjee001
