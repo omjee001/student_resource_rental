@@ -16,15 +16,18 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "change-me")
 app.config["UPLOAD_FOLDER"] = os.environ.get("UPLOAD_FOLDER", "static/uploads")
 app.config["ALLOWED_EXTENSIONS"] = {"png", "jpg", "jpeg", "gif"}
 
-# Database configuration
-app.config["MONGO_URI"] = os.environ.get(
-    "MONGO_URI",
-    "mongodb+srv://omjee7253_db_user:Atlas123@cluster0.1uuvsco.mongodb.net/Student?retryWrites=true&w=majority",
-)
+# Database configuration (SAFE VERSION — NO PASSWORD in code)
+mongo_uri = os.environ.get("MONGO_URI")
+if not mongo_uri:
+    raise RuntimeError(
+        "ERROR: MONGO_URI environment variable is missing.\n"
+        "Set MONGO_URI in a .env file instead of hardcoding it."
+    )
+
+app.config["MONGO_URI"] = mongo_uri
 mongo = PyMongo(app, tlsCAFile=certifi.where())
 
-# Enable CORS for API routes (allow credentials for session cookies)
-# When serving from same port, allow all origins; otherwise use configured origins
+# Enable CORS
 cors_origins = os.environ.get("CORS_ORIGINS", "*")
 if cors_origins == "*":
     CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
@@ -37,6 +40,7 @@ users = mongo.db.Student
 resources = mongo.db.resources
 requests_collection = mongo.db.requests
 
+# (🔽 Everything below stays the same — unchanged)
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in app.config["ALLOWED_EXTENSIONS"]
